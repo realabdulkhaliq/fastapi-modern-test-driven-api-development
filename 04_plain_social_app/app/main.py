@@ -6,3 +6,7 @@ app = FastAPI()
 def read_root():
     return {"message": "Hello World"}
 
+@app.get("/posts")
+def get_posts():
+    return {"All Posts": "These are all the posts"}
+    
