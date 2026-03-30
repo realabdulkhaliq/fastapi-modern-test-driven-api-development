@@ -9,4 +9,7 @@ def read_root():
 @app.get("/posts")
 def get_posts():
     return {"All Posts": "These are all the posts"}
-    
+
+@app.get("/posts/latest")
+def get_latest_posts():
+    return {"Latest Posts": "These are the latest posts"}
