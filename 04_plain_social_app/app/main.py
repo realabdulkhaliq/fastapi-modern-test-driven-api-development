@@ -18,11 +18,14 @@ def read_root():
 @app.post("/createpost")
 def create_post(post: Post):
     print(post)
+    my_posts.append(post.dict())
+    return post
 
 @app.get("/posts")
 def get_posts():
-    return {"All Posts": "These are all the posts"}
+    return {"All Posts": my_posts}
 
 @app.get("/posts/latest")
 def get_latest_posts():
-    return {"Latest Posts": "These are the latest posts"}
+    latest_posts = my_posts[-1] if my_posts else None
+    return {"Latest Posts": latest_posts}
