@@ -19,7 +19,7 @@ def read_root():
 def create_post(post: Post):
     print(post)
     my_posts.append(post.dict())
-    return post
+    return {"message": "Post created successfully", "post": post.dict()}
 
 @app.get("/posts")
 def get_posts():
