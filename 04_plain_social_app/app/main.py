@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, status
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -15,9 +15,8 @@ class Post(BaseModel):
 def read_root():
     return {"message": "Hello World"}
 
-@app.post("/createpost")
+@app.post("/createpost", status_code=status.HTTP_201_CREATED)
 def create_post(post: Post):
-    print(post)
     my_posts.append(post.dict())
     return {"message": "Post created successfully", "post": post.dict()}
 
