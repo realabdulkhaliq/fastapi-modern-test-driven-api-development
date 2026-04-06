@@ -6,6 +6,10 @@ app = FastAPI()
 my_posts = [{"title": "Post 1", "content": "Content of post 1", "published": True, "id": 1},
             {"title": "Post 2", "content": "Content of post 2", "published": False, "id": 2}]
 
+def find_post(id):
+    for post in my_posts:
+        if post[id] == id:
+            return post
 class Post(BaseModel):
     title: str
     content: str
@@ -28,3 +32,7 @@ def get_posts():
 def get_latest_posts():
     latest_posts = my_posts[-1] if my_posts else None
     return {"Latest Posts": latest_posts}
+
+@app.get("/posts/{id}")
+def get_post(id: int):
+
