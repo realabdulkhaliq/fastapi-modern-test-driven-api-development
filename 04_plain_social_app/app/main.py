@@ -35,4 +35,7 @@ def get_latest_posts():
 
 @app.get("/posts/{id}")
 def get_post(id: int):
-
+    post = next((post for post in my_posts if post["id"] == id), None)
+    if post is None:
+        return {"message": f"Post with id {id} not found"}
+    return {"post": post}
