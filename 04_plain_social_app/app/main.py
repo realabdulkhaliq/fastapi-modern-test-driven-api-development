@@ -3,9 +3,10 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-my_posts = [{"title": "Post 1", "content": "Content of post 1", "published": True, "id": 1},
-            {"title": "Post 2", "content": "Content of post 2", "published": False, "id": 2},
-            {"title": "Post 3", "content": "Content of post 3", "published": True, "id": 3}]
+my_posts = []
+# my_posts = [{"title": "Post 1", "content": "Content of post 1", "published": True, "id": 1},
+#             {"title": "Post 2", "content": "Content of post 2", "published": False, "id": 2},
+#             {"title": "Post 3", "content": "Content of post 3", "published": True, "id": 3}]
 
 def find_post(id):
     for post in my_posts:
@@ -31,7 +32,7 @@ def get_posts():
 
 @app.get("/posts/latest")
 def get_latest_posts():
-    latest_posts = my_posts[-1] if my_posts else None
+    latest_posts = my_posts[-1] if my_posts else HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No posts available")
     return {"Latest Posts": latest_posts}
 
 @app.get("/posts/{id}")
