@@ -1,4 +1,4 @@
-from fastapi import FastAPI, status, Response
+from fastapi import FastAPI, status, HTTPException
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -8,7 +8,7 @@ my_posts = [{"title": "Post 1", "content": "Content of post 1", "published": Tru
 
 def find_post(id):
     for post in my_posts:
-        if post[id] == id:
+        if post["id"] == id:
             return post
 class Post(BaseModel):
     title: str
@@ -34,9 +34,8 @@ def get_latest_posts():
     return {"Latest Posts": latest_posts}
 
 @app.get("/posts/{id}")
-def get_post(id: int, response: Response):
+def get_post(id: int):
     post = find_post(id)
     if post:
         return {"Post": post}
-    response.status_code = status.HTTP_404_NOT_FOUND
-    return {"message": "Post not found"}
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id {id} not found")
