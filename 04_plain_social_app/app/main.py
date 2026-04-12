@@ -4,7 +4,8 @@ from pydantic import BaseModel
 app = FastAPI()
 
 my_posts = [{"title": "Post 1", "content": "Content of post 1", "published": True, "id": 1},
-            {"title": "Post 2", "content": "Content of post 2", "published": False, "id": 2}]
+            {"title": "Post 2", "content": "Content of post 2", "published": False, "id": 2},
+            {"title": "Post 3", "content": "Content of post 3", "published": True, "id": 3}]
 
 def find_post(id):
     for post in my_posts:
@@ -38,4 +39,12 @@ def get_post(id: int):
     post = find_post(id)
     if post:
         return {"Post": post}
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id {id} not found")
+
+@app.delete("/posts/{id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_post(id: int):
+    post = find_post(id)
+    if post:
+        my_posts.remove(post)
+        return {"message": f"Post with id {id} deleted successfully"}
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id {id} not found")
