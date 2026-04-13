@@ -3,10 +3,9 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-my_posts = []
-# my_posts = [{"title": "Post 1", "content": "Content of post 1", "published": True, "id": 1},
-#             {"title": "Post 2", "content": "Content of post 2", "published": False, "id": 2},
-#             {"title": "Post 3", "content": "Content of post 3", "published": True, "id": 3}]
+my_posts = [{"title": "Post 1", "content": "Content of post 1", "published": True, "id": 1},
+            {"title": "Post 2", "content": "Content of post 2", "published": False, "id": 2},
+            {"title": "Post 3", "content": "Content of post 3", "published": True, "id": 3}]
 
 def find_post(id):
     for post in my_posts:
