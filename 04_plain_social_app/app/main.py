@@ -48,3 +48,11 @@ def delete_post(id: int):
         my_posts.remove(post)
         return {"message": f"Post with id {id} deleted successfully"}
     raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id {id} not found")
+
+@app.put("/posts/{id}")
+def update_post(id: int, updated_post: Post):
+    post = find_post(id)
+    if post:
+        post.update(updated_post.dict())
+        return {"message": f"Post with id {id} updated successfully", "post": post}
+    raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Post with id {id} not found")
